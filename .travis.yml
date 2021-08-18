@@ -1,2 +1,12 @@
 language: java
 jdk: openjdk16
+
+# cache local .m2 dir for faster builds
+cache:
+  directories:
+    - $HOME/.m2
+
+# for code coverage
+script:
+  - ./mvn clean install
+  - bash <(curl -s https://codecov.io/bash)
