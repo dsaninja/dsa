@@ -8,6 +8,8 @@ package com.dsaninja.algos.sort;
  * the two are our of place, the smaller element is posted on the current index.
  * After every iteration, the current index position will have the correct element.
  *
+ * This is an in-place, but NOT a stable sorting algorithm.
+ *
  * <h1>Complexity</h1>
  * <ol>
  *    <li>Best Case: O(n*n)</li>

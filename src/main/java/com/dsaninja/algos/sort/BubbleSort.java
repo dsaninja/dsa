@@ -9,6 +9,8 @@ package com.dsaninja.algos.sort;
  * we find that there was no swapping in the current iteration, we can terminate
  * the loops as this indicates that the sorting is complete.
  *
+ * This is an in-place, stable sorting algorithm.
+ *
  * <h1>Complexity</h1>
  *  * <ol>
  *  *    <li>Best Case: O(n) - already sorted input; via flag indicating no swap</li>

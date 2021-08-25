@@ -11,6 +11,14 @@ import java.util.List;
  * an element is said to be in sorted position if all the elements to its left are
  * smaller than it and all the elements to its right are more than it.
  *
+ * This is an in-place, but NOT a stable sorting algorithm.
+ *
+ * <h1>Complexity</h1>
+ * <ol>
+ *     <li>Best Case: O(n^2)</li>
+ *     <li>Worst Case: O(nlog(n))</li>
+ * </ol>
+ *
  * @author gaurs
  */
 public class QuickSort{
@@ -35,6 +43,8 @@ public class QuickSort{
         int i = start;
         int j = end;
 
+        // consider all the elements in every iteration
+        // within the range
         while(i < j){
             // move toward right until you find an element more than pivot
             // stop there as that element needs to be moved to the right of pivot

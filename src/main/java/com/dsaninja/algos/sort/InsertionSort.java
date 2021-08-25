@@ -5,6 +5,14 @@ package com.dsaninja.algos.sort;
  * on index i, move all the elements to the right which are greater than the ith element
  * and place element on index i at the location where the condition breaks.
  *
+ * This is an in-place, stable sorting algorithm.
+ *
+ * <h1>Complexity</h1>
+ * <ol>
+ *     <li>Best Case: O(n)</li>
+ *     <li>Worst Case: O(n^2)</li>
+ * </ol>
+ *
  * @author gaurs
  */
 public class InsertionSort{

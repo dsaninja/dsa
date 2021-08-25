@@ -10,7 +10,7 @@ package com.dsaninja.algos.search;
  * <h1>Complexity</h1>
  * <ol>
  *      <li>Best Case: O(1) - the first element matches the key</li>
- *      <li>Worst Case: O(log2n)</li>
+ *      <li>Worst Case: O(log2(n))</li>
  * </ol>
  *
  * @author gaurs
