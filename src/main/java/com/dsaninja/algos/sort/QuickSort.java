@@ -1,11 +1,5 @@
 package com.dsaninja.algos.sort;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-
 /**
  * The quick sort algorithm implemented in java. The idea is based on the fact that
  * an element is said to be in sorted position if all the elements to its left are
