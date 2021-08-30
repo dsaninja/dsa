@@ -1,5 +1,7 @@
 package com.dsaninja.algos.sort;
 
+import java.util.Arrays;
+
 /**
  * Count sort implementation in java. The algorithm is a non-comparison
  * sorting algorithm and runs in linear time.
@@ -17,6 +19,8 @@ package com.dsaninja.algos.sort;
  *     <li>Worst Case: O(n+r)</li>
  *     <li>Space: O(n+r)</li>
  * </ol>
+ *
+ * @author gaurs
  */
 public class CountSort{
     public void sort(int[] input){
@@ -68,7 +72,8 @@ public class CountSort{
     }
 
     private int[] populateFrequencies(int[] input){
-        int[] freq = new int[input.length];
+        int maxValue = Arrays.stream(input).max().getAsInt();
+        int[] freq = new int[maxValue + 1];
         // freq[input[i] = freq[input[i] + 1
         for(int index : input){
             freq[index] = freq[index] + 1;

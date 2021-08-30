@@ -40,7 +40,7 @@ class CountSortSpec extends Specification {
     }
 
     def "test sorting a single element input array"() {
-        given: "an un-sorted input array"
+        given: "an single element input array"
         def input = new int[]{0}
 
         when: "count sort is triggered"
@@ -48,6 +48,28 @@ class CountSortSpec extends Specification {
 
         then: "array should be unchanged"
         input == new int[]{0}
+    }
+
+    def "test sorting two un-sorted elements"(){
+        given: "an two elements input array"
+        def input = new int[]{3,2}
+
+        when: "count sort is triggered"
+        countSort.sort(input)
+
+        then: "array should be sorted"
+        input == new int[]{2,3}
+    }
+
+    def "test sorting two duplicate elements"(){
+        given: "an two elements input array"
+        def input = new int[]{2,2}
+
+        when: "count sort is triggered"
+        countSort.sort(input)
+
+        then: "array should be unchanged"
+        input == new int[]{2,2}
     }
 
     def "test sorting an empty input array"() {

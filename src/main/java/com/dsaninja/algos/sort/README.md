@@ -14,3 +14,6 @@ Check [this](https://en.wikipedia.org/wiki/Sorting_algorithm) link for various s
 ## Non Comparison Sort
 
 1. [Count Sort](CountSort.java)
+2. [Radix Sort](RadixSort.java)
+3. [Bucket Sort](BucketSortForWholeNumbers.java) - for whole numbers
+4. [Bucket Sort](BucketSortForRationalNumbers.java) - for rational numbers
