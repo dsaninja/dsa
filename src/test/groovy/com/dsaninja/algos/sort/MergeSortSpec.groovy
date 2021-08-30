@@ -39,6 +39,17 @@ class MergeSortSpec extends Specification {
         input == new int[]{1, 2}
     }
 
+    def "test sorting two duplicate elements"(){
+        given: "an array of two duplicate elements"
+        def input = new int[]{2,2}
+
+        when: "merge sort is triggered"
+        mergeSort.sort(input)
+
+        then: "array should be unchanged"
+        input == new int[]{2,2}
+    }
+
     def "test sorting an un-sorted input array"() {
         given: "an un-sorted input array"
         def input = new int[]{1, 5, 3, 9, 2, 4}

@@ -26,7 +26,7 @@ public class QuickSort{
             // find partition location
             int partitionIndex = partition(input, start, end);
             // sort first half
-            quickSort(input, start, partitionIndex);
+            quickSort(input, start, partitionIndex -1);
             // sort second half
             quickSort(input, partitionIndex + 1, end);
         }
@@ -34,7 +34,9 @@ public class QuickSort{
 
     private int partition(int[] input, int start, int end){
         int pivot = input[start];
-        int i = start;
+
+        // next element than pivot
+        int i = start + 1;
         int j = end;
 
         // consider all the elements in every iteration
@@ -42,13 +44,13 @@ public class QuickSort{
         while(i < j){
             // move toward right until you find an element more than pivot
             // stop there as that element needs to be moved to the right of pivot
-            while(input[i] <= pivot){
+            while(input[i] < pivot && i < end){
                 i++;
             }
 
             // move toward left until you find an element smaller than pivot
             // stop there as that element needs to be moved to the left of pivot
-            while(input[j] > pivot){
+            while(input[j] > pivot && j > start){
                 j--;
             }
 
@@ -60,12 +62,14 @@ public class QuickSort{
             }
         }
 
-        // the j will be pointing to the location meant for pivot
-        // as all the elements left to j are smaller than pivot
-        // and all the elements to the right of j are more than pivot
-        int temp = input[j];
-        input[j] = input[start];
-        input[start] = temp;
+        if(pivot > input[j]){
+            // the j will be pointing to the location meant for pivot
+            // as all the elements left to j are smaller than pivot
+            // and all the elements to the right of j are more than pivot
+            int temp = input[j];
+            input[j] = input[start];
+            input[start] = temp;
+        }
 
         return j;
     }
