@@ -25,10 +25,10 @@ public class BubbleSort{
         int length = input.length;
 
         boolean unsorted = false;
-        for(int i = 0; i < length; i++){
+        for(int i = 0; i < length -1; i++){
             // In every iteration as adjacent elements are compared we only need
             // to go till second last element via index "j" as for
-            // "j" pointing to second last element (j < length -1), j+1 will point
+            // "j" pointing to second last element (j < length -1) -> j+1 will point
             // to last element.
 
             // Also, as in every iteration, the rightmost element will be correctly placed,

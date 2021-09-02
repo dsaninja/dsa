@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * The algorithm works as follows:
  * <ol>
  *     <li>find the maximum element</li>
- *     <li>for every digit starting from lsb to msb in maxElement, call countSort routine on the array</li>
+ *     <li>for every digit starting from lsd to msd in maxElement, call countSort routine on the array</li>
  *     <li>create 10 buckets - as the digits on every place in maxElement will be between 0..9</li>
  *     <li>put the input[i] on some bucket, where bucket index is based on the current digit of input[i]</li>
  * </ol>

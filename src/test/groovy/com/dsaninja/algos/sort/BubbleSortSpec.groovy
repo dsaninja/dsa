@@ -37,4 +37,48 @@ class BubbleSortSpec extends Specification {
         then: "array should remain unchanged"
         input == new int[]{}
     }
+
+    def "test sorting a single element input array"() {
+        given: "an single element input array"
+        def input = new int[]{0}
+
+        when: "quick sort is triggered"
+        bubbleSort.sort(input)
+
+        then: "array should be unchanged"
+        input == new int[]{0}
+    }
+
+    def "test sorting two element unsorted input array"() {
+        given: "an un-sorted input array"
+        def input = new int[]{3,2}
+
+        when: "quick sort is triggered"
+        bubbleSort.sort(input)
+
+        then: "array should be sorted"
+        input == new int[]{2,3}
+    }
+
+    def "test sorting two element sorted input array"() {
+        given: "an sorted input array"
+        def input = new int[]{2,3}
+
+        when: "quick sort is triggered"
+        bubbleSort.sort(input)
+
+        then: "array should be sorted"
+        input == new int[]{2,3}
+    }
+
+    def "test sorting two element input array with duplicates"() {
+        given: "an sorted input array"
+        def input = new int[]{2,2}
+
+        when: "quick sort is triggered"
+        bubbleSort.sort(input)
+
+        then: "array should be sorted"
+        input == new int[]{2,2}
+    }
 }
