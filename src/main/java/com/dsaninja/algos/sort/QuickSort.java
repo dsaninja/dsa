@@ -44,12 +44,14 @@ public class QuickSort{
         while(i < j){
             // move toward right until you find an element more than pivot
             // stop there as that element needs to be moved to the right of pivot
+            // pay attention to the equality operator for input and pivot comparison
             while(input[i] <= pivot && i < end){
                 i++;
             }
 
             // move toward left until you find an element smaller than pivot
             // stop there as that element needs to be moved to the left of pivot
+            // pay attention to the equality operator for input and pivot comparison
             while(input[j] >= pivot && j > start){
                 j--;
             }

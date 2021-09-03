@@ -7,4 +7,5 @@ A collection of various data structures and algorithms implemented using java pr
 
 1. [Search Algorithms](./src/main/java/com/dsaninja/algos/search/README.md)
 2. [Sorting Algorithms](./src/main/java/com/dsaninja/algos/sort/README.md)
+3. [Data Structures](./src/main/java/com/dsaninja/ds/README.md)
 
