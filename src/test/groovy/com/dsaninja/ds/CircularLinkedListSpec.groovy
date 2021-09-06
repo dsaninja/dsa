@@ -70,7 +70,7 @@ class CircularLinkedListSpec extends Specification {
         circularLinkedList.toString() == "1, 5, 2"
     }
 
-    def "test element insertion at a given index -V2"() {
+    def "test element insertion at a given index - V2"() {
         given: "a new circular list is created"
         def circularLinkedList = new CircularLinkedList()
 
@@ -78,11 +78,29 @@ class CircularLinkedListSpec extends Specification {
         circularLinkedList.add("1")
         and: "another element is added"
         circularLinkedList.add("2")
-        and: "an element is inserted at index 1"
+        and: "an element is inserted at index 2"
         circularLinkedList.add(2, 5)
 
         then: "element should be inserted at correct location"
         circularLinkedList.toString() == "1, 2, 5"
+    }
+
+    def "test element insertion at a given index - V3"() {
+        given: "a new circular list is created"
+        def circularLinkedList = new CircularLinkedList()
+
+        when: "an element is inserted"
+        circularLinkedList.add("1")
+        and: "another element is added"
+        circularLinkedList.add("2")
+        circularLinkedList.add("3")
+        circularLinkedList.add("4")
+        circularLinkedList.add("5")
+        and: "an element is inserted at index 2"
+        circularLinkedList.add(4, 6)
+
+        then: "element should be inserted at correct location"
+        circularLinkedList.toString() == "1, 2, 3, 4, 6, 5"
     }
 
     def "test element insertion at a invalid index"() {

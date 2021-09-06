@@ -27,8 +27,8 @@ import java.util.stream.StreamSupport;
 @NotThreadSafe
 public class Queue<E>{
 
-    private Node<E> first;
-    private Node<E> last;
+    private Node first;
+    private Node last;
     private int size;
 
     /**
@@ -42,7 +42,7 @@ public class Queue<E>{
             throw new NullPointerException("element cannot be null");
         }
 
-        Node<E> newNode = new Node<>();
+        Node newNode = new Node();
         newNode.data = element;
 
         // empty queue
@@ -103,8 +103,8 @@ public class Queue<E>{
      * @return steam of elements
      */
     public Stream<E> stream(){
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(new Iterator<E>(){
-            Node<E> temp = first;
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(new Iterator<>(){
+            Node temp = first;
 
             @Override
             public boolean hasNext(){
@@ -125,8 +125,8 @@ public class Queue<E>{
         return this.stream().map(Object::toString).collect(Collectors.joining(", "));
     }
 
-    private static class Node<E>{
+    private class Node{
         E data;
-        Node<E> next;
+        Node next;
     }
 }

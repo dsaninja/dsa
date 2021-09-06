@@ -121,6 +121,9 @@ public class CircularLinkedList<E>{
         Node current = head;
         Node previous = null;
 
+        // the while loop will not work here
+        // as for first node current == head will
+        // be true and the loop will break
         do{
             if(current.data.equals(element)){
                 if(null == previous){
