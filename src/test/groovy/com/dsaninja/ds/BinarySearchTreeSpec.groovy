@@ -112,7 +112,7 @@ class BinarySearchTreeSpec extends Specification {
         binarySearchTree.size == 4
     }
 
-    def "test traversing blank tree - preorder"(){
+    def "test traversing blank tree - preorder"() {
         given: "BST is created"
         def stringJoiner = new StringJoiner(", ");
 
@@ -123,7 +123,7 @@ class BinarySearchTreeSpec extends Specification {
         stringJoiner.length() == 0
     }
 
-    def "test traversing blank tree - post order"(){
+    def "test traversing blank tree - post order"() {
         given: "BST is created"
         def stringJoiner = new StringJoiner(", ");
 
@@ -164,7 +164,7 @@ class BinarySearchTreeSpec extends Specification {
         !contains
     }
 
-    def "test removing a null element"(){
+    def "test removing a null element"() {
         given: "BST is created"
         and: "some elements are inserted"
         binarySearchTree.insert("15")
@@ -267,7 +267,7 @@ class BinarySearchTreeSpec extends Specification {
         binarySearchTree.toString() == "20, 30, 40, 50, 60, 80"
     }
 
-    def "test removing an element from only right subtree"(){
+    def "test removing an element from only right subtree"() {
         given: "BST is created"
         and: "some elements are inserted"
         binarySearchTree.insert("20")
@@ -283,7 +283,7 @@ class BinarySearchTreeSpec extends Specification {
         binarySearchTree.getSize() == 2
     }
 
-    def "test removing an element from only left subtree"(){
+    def "test removing an element from only left subtree"() {
         given: "BST is created"
         and: "some elements are inserted"
         binarySearchTree.insert("50")
@@ -327,5 +327,151 @@ class BinarySearchTreeSpec extends Specification {
         "70"        | true
         "60"        | true
         "80"        | true
+    }
+
+    def "test height of a empty tree"() {
+        given: "BST is created"
+
+        when: "its height is checked"
+        def height = binarySearchTree.height()
+
+        then: "it should be zero"
+        height == 0
+    }
+
+    // https://stackoverflow.com/questions/4065439/height-of-a-tree-with-only-one-node
+    def "test height of single node BST when root at 1 height"() {
+        given: "BST is created"
+        and: "some elements are inserted"
+        binarySearchTree.insert("50")
+
+        when: "its height is checked"
+        def height = binarySearchTree.height()
+
+        then: "it should be 1"
+        height == 1
+    }
+
+    // https://stackoverflow.com/questions/4065439/height-of-a-tree-with-only-one-node
+    def "test height of single unavailable node"() {
+        given: "BST is created"
+        and: "some elements are inserted"
+        binarySearchTree.insert("50")
+        binarySearchTree.insert("30")
+        binarySearchTree.insert("20")
+        binarySearchTree.insert("40")
+        binarySearchTree.insert("70")
+        binarySearchTree.insert("60")
+        binarySearchTree.insert("80")
+
+        when: "height is checked of a missing node"
+        def height = binarySearchTree.height("90")
+
+        then: "it should be 0"
+        height == 0
+    }
+
+    /**
+     *         50
+     *       /    \
+     *      /      \
+     *     /        \
+     *    30         70
+     *   /  \       /  \
+     *  20  40     60  80
+     *                   \
+     *                    100
+     *
+     * @return
+     */
+    @Unroll("testing height of #node element")
+    def "test height of various nodes when root at 1 height"(Integer node) {
+        given: "BST is created"
+        and: "some elements are inserted"
+        binarySearchTree.insert(50)
+        binarySearchTree.insert(30)
+        binarySearchTree.insert(20)
+        binarySearchTree.insert(40)
+        binarySearchTree.insert(70)
+        binarySearchTree.insert(60)
+        binarySearchTree.insert(80)
+        binarySearchTree.insert(100)
+
+        when: "its height is checked"
+        def actualHeight = binarySearchTree.height(node)
+
+        then: "its height should match"
+        actualHeight == expectedHeight
+
+        where:
+        node | expectedHeight
+        50   | 4
+        30   | 2
+        20   | 1
+        40   | 1
+        70   | 3
+        60   | 1
+        80   | 2
+        100  | 1
+    }
+
+    @Unroll("testing depth of #node element")
+    def "test depth of various nodes when root at 0 depth"(Integer node) {
+        given: "BST is created"
+        and: "some elements are inserted"
+        binarySearchTree.insert(50)
+        binarySearchTree.insert(30)
+        binarySearchTree.insert(20)
+        binarySearchTree.insert(40)
+        binarySearchTree.insert(70)
+        binarySearchTree.insert(60)
+        binarySearchTree.insert(80)
+        binarySearchTree.insert(100)
+
+        when: "its height is checked"
+        def actualDepth = binarySearchTree.depth(node)
+
+        then: "its depth should match"
+        actualDepth == expectedDepth
+
+        where:
+        node | expectedDepth
+        50   | 1
+        30   | 2
+        20   | 3
+        40   | 3
+        70   | 2
+        60   | 3
+        80   | 3
+        100  | 4
+    }
+
+    def "check depth of a node when tree is empty"() {
+        given: "BST is created"
+
+        when: "depth is checked for some node"
+        def depth = binarySearchTree.depth(50)
+
+        then: "it should be -1"
+        depth == -1
+    }
+
+    def "check depth of a non-existent node"() {
+        given: "BST is created"
+        and: "some elements are inserted"
+        binarySearchTree.insert(50)
+        binarySearchTree.insert(30)
+        binarySearchTree.insert(20)
+        binarySearchTree.insert(40)
+        binarySearchTree.insert(70)
+        binarySearchTree.insert(60)
+        binarySearchTree.insert(80)
+        binarySearchTree.insert(100)
+
+        when: "depth is checked for some node"
+        def depth = binarySearchTree.depth(110)
+
+        then: "it should be 0"
+        depth == 0
     }
 }

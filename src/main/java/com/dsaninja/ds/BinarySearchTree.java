@@ -17,6 +17,8 @@ import java.util.function.Consumer;
  *      </ol>
  *      <li><strong>size</strong>: number of nodes in the tree</li>
  *      <li><strong>toString</strong>: comma seperated list of elements, appended built using in-order tree traversal</li>
+ *      <li><strong>height</strong>: height of the tree</li>
+ *      <li><strong>height(element)</strong>: check the height of node having the specified value</li>
  *     </li>
  * </ol>
  * <p>
@@ -115,6 +117,38 @@ public class BinarySearchTree<T extends Comparable<T>>{
         int originalSize = size;
         root = remove(root, element);
         return size + 1 == originalSize;
+    }
+
+    /**
+     * The method is used to calculate the height of the tree
+     * assuming that root is at a height of 1.
+     *
+     * @return height, 0 for blank node
+     */
+    public int height(){
+        return height(root);
+    }
+
+    /**
+     * The method is used to check the height of a given node, assuming that
+     * the minimum height is 1 for a single node tree.
+     *
+     * @param element to be checked
+     * @return height of the node if present, 0 otherwise
+     */
+    public int height(T element){
+        return height(element, root);
+    }
+
+    public int depth(T element){
+        if(null == root){
+            return -1;
+        }
+
+        // assuming the depth of root is 1
+        // for depth of root as 0
+        // update here
+        return depth(element, root, 1);
     }
 
     @Override
@@ -237,6 +271,45 @@ public class BinarySearchTree<T extends Comparable<T>>{
             }
         }
         return false;
+    }
+
+    private int height(Node root){
+        if(null == root){
+            // return -1 if height of root is
+            // considered as 0
+            return 0;
+        }
+        return 1 + Math.max(height(root.left), height(root.right));
+    }
+
+    private int height(T element, Node root){
+        if(root == null){
+            return 0;
+        }
+
+        if(element.compareTo(root.data) == 0){
+            return height(root);
+        } else if(element.compareTo(root.data) < 0){
+            return height(element, root.left);
+        } else{
+            return height(element, root.right);
+        }
+    }
+
+    private int depth(T element, Node root, int depth){
+        if(null == root){
+            return 0;
+        }
+
+        if(element.compareTo(root.data) == 0){
+            return depth;
+        } else if(element.compareTo(root.data) < 0){
+            return depth(element, root.left, depth + 1);
+        } else if(element.compareTo(root.data) > 0){
+            return depth(element, root.right, depth + 1);
+        }
+
+        return -1;
     }
 
     private class Node{
