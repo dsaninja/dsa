@@ -305,11 +305,9 @@ public class BinarySearchTree<T extends Comparable<T>>{
             return depth;
         } else if(element.compareTo(root.data) < 0){
             return depth(element, root.left, depth + 1);
-        } else if(element.compareTo(root.data) > 0){
+        } else {
             return depth(element, root.right, depth + 1);
         }
-
-        return -1;
     }
 
     private class Node{
