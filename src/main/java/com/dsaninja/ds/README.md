@@ -7,3 +7,4 @@
 5. [Circular Linked List](CircularLinkedList.java) - Unbounded
 6. [Binary Search Tree](BinarySearchTree.java)
 7. [Graph implementation as adjacency matrix](GraphAsAdjacencyMatrix.java)
+8. [Graph implementation as adjacency list](GraphAsAdjacencyList.java)

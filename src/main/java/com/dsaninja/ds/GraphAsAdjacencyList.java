@@ -1,29 +1,54 @@
 package com.dsaninja.ds;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.Queue;
+import java.util.stream.IntStream;
 
 /**
  * A graph implementation using adjacency matrix representation.
  *
  * @author gaurs
  */
-public class GraphAsAdjacencyMatrix{
+public class GraphAsAdjacencyList{
 
-    private final int[][] vertices;
-    private final int numberOfVertex;
+    private final List<List<Integer>> vertices;
+    private int numberOfVertex;
 
     /**
      * Create a graph with specified number of vertices.
      *
      * @param numberOfVertex number of vertices
      */
-    public GraphAsAdjacencyMatrix(int numberOfVertex){
+    public GraphAsAdjacencyList(int numberOfVertex){
         this.numberOfVertex = numberOfVertex;
-        vertices = new int[numberOfVertex][numberOfVertex];
+        vertices = new ArrayList<>(numberOfVertex);
+        IntStream.range(0, numberOfVertex).forEach(index -> {
+            List<Integer> connections = new ArrayList<>(Collections.nCopies(numberOfVertex, 0));
+            vertices.add(index, connections);
+        });
+    }
+
+    /**
+     * Add a new vertx in the graph. The new vertex should be a valid index
+     * i.e. current count +1 only.
+     *
+     * @param vertex vertex index
+     * @throws IllegalArgumentException in case of illegal vertex
+     */
+    public void addVertex(int vertex){
+        if(vertex == numberOfVertex + 1){
+            numberOfVertex = numberOfVertex + 1;
+            List<Integer> connections = new ArrayList<>(Collections.nCopies(numberOfVertex, 0));
+            vertices.add(connections);
+        } else{
+            throw new IllegalArgumentException("invalid index");
+        }
     }
 
     /**
@@ -36,8 +61,8 @@ public class GraphAsAdjacencyMatrix{
      */
     public void addEdge(int start, int end){
         if(start >= 0 && end <= numberOfVertex && start < end){
-            vertices[start][end] = 1;
-            vertices[end][start] = 1;
+            vertices.get(start).set(end, 1);
+            vertices.get(end).set(start, 1);
         } else{
             throw new IllegalArgumentException("invalid start or end index");
         }
@@ -54,8 +79,8 @@ public class GraphAsAdjacencyMatrix{
      */
     public void removeEdge(int start, int end){
         if(start >= 0 && end <= numberOfVertex && start < end){
-            vertices[start][end] = 0;
-            vertices[end][start] = 0;
+            vertices.get(start).set(end, 0);
+            vertices.get(end).set(start, 0);
         } else{
             throw new IllegalArgumentException("invalid start or end index");
         }
@@ -65,8 +90,6 @@ public class GraphAsAdjacencyMatrix{
      * Check if the two vertices denoted by start and end params
      * are connected or not.
      *
-     * For checking reverse connection, end > start is fine
-     *
      * @param start start vertex
      * @param end   end vertex
      * @return true of connected, false otherwise
@@ -74,7 +97,7 @@ public class GraphAsAdjacencyMatrix{
      */
     public boolean isConnected(int start, int end){
         if(start >= 0 && start < numberOfVertex && end > 0 && end <= numberOfVertex){
-            return vertices[start][end] == 1;
+            return vertices.get(start).get(end) == 1;
         } else{
             throw new IllegalArgumentException("invalid start or end index");
         }
@@ -89,12 +112,16 @@ public class GraphAsAdjacencyMatrix{
     public int degree(int vertex){
         int count = 0;
         for(int i = 0; i < numberOfVertex; i++){
-            if(vertices[vertex][i] == 1){
+            if(vertices.get(vertex).get(i) == 1){
                 count++;
             }
         }
 
         return count;
+    }
+
+    public int getNumberOfVertex(){
+        return numberOfVertex;
     }
 
     public void bfs(Consumer<Integer> consumer){
@@ -112,7 +139,7 @@ public class GraphAsAdjacencyMatrix{
                     visited.add(node);
 
                     for(int i = 0; i < numberOfVertex; i++){
-                        if(vertices[node][i] == 1){
+                        if(vertices.get(node).get(i) == 1){
                             if(!visited.contains(i)){
                                 neighbours.add(i);
                             }
@@ -121,9 +148,5 @@ public class GraphAsAdjacencyMatrix{
                 }
             }
         }
-    }
-
-    public int getNumberOfVertex(){
-        return numberOfVertex;
     }
 }

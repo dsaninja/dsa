@@ -1,15 +1,16 @@
 package com.dsaninja.ds
 
+import spock.lang.Shared
 import spock.lang.Specification
 
-class GraphAsAdjacencyMatrixSpec extends Specification {
+class GraphAsAdjacencyListSpec extends Specification {
 
     def "test creating a graph of n vertices"() {
         given: "number of vertices"
         def vertexCount = 5
 
         when: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
 
         then: "graph with specified node count should be created"
         graph != null
@@ -20,7 +21,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 5
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         and: "start and end vertices"
         def start = 1
         def end = 2
@@ -38,7 +39,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 5
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         and: "start and end vertices"
         def start = 1
         def end = 2
@@ -58,7 +59,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 5
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
 
         when: "a new edge is created between two nodes start: 6 and end: 4"
         graph.addEdge(6, 4)
@@ -89,7 +90,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 5
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         and: "invalid start or end vertices"
         def start = 1
         def end = 6
@@ -105,7 +106,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 5
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         and: "invalid start vertex"
 
         when: "an edge is removed between two nodes start: 6 and end: 4"
@@ -125,7 +126,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 5
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         and: "invalid end vertex"
 
         when: "an edge is removed between two nodes start: 1 and end: 6"
@@ -145,7 +146,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 5
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         and: "invalid start vertex"
 
         when: "connection is checked for start: 6 and end: 2"
@@ -165,7 +166,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 5
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         and: "invalid end vertex"
 
         when: "connection is checked for start: 1 and end: 6"
@@ -185,7 +186,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 5
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         and: "start and end vertices"
         def start = 1
 
@@ -204,7 +205,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 6
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         graph.addEdge(0, 1)
         graph.addEdge(0, 2)
         graph.addEdge(1, 3)
@@ -224,7 +225,7 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         given: "number of vertices"
         def vertexCount = 0
         and: " a new graph is created"
-        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def graph = new GraphAsAdjacencyList(vertexCount)
         def stringJoiner = new StringJoiner(", ")
 
         when: "a few edges are created between two nodes"
@@ -232,5 +233,38 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
 
         then: "bfs traversal should be correctly done"
         stringJoiner.toString() == ""
+    }
+
+    @Shared
+    def graph = new GraphAsAdjacencyList(5)
+    def "test adding a new vertex"(int vertex) {
+        given: "number of vertices"
+        and: " a new graph is created"
+
+        when: "new vertex is added"
+        graph.addVertex(vertex)
+        def updatedVertexCount = graph.getNumberOfVertex()
+
+        then:
+        updatedVertexCount == expectedVertexCount
+
+        where:
+        vertex | expectedVertexCount
+        6      | 6
+        7      | 7
+        8      | 8
+    }
+
+    def "invalid vertex creation"(){
+        given: "number of vertices"
+        def vertexCount = 5
+        and: " a new graph is created"
+        def graph = new GraphAsAdjacencyList(vertexCount)
+
+        when: "new invalid vertex is created"
+        graph.addVertex(7)
+
+        then: "exception is thrown"
+        thrown(IllegalArgumentException)
     }
 }
