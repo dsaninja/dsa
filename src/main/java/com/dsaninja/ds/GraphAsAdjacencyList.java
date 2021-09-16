@@ -60,7 +60,7 @@ public class GraphAsAdjacencyList{
      * @throws IllegalArgumentException if invalid vertex
      */
     public void addEdge(int start, int end){
-        if(start >= 0 && end <= numberOfVertex && start < end){
+        if(start >= 0 && end <= numberOfVertex){
             vertices.get(start).set(end, 1);
             vertices.get(end).set(start, 1);
         } else{
@@ -78,7 +78,7 @@ public class GraphAsAdjacencyList{
      * @throws IllegalArgumentException if invalid vertex
      */
     public void removeEdge(int start, int end){
-        if(start >= 0 && end <= numberOfVertex && start < end){
+        if(start >= 0 && end <= numberOfVertex){
             vertices.get(start).set(end, 0);
             vertices.get(end).set(start, 0);
         } else{
@@ -134,15 +134,13 @@ public class GraphAsAdjacencyList{
 
             while(!neighbours.isEmpty()){
                 int node = neighbours.poll();
-                if(!visited.contains(node)){
-                    consumer.accept(node);
-                    visited.add(node);
+                consumer.accept(node);
+                visited.add(node);
 
-                    for(int i = 0; i < numberOfVertex; i++){
-                        if(vertices.get(node).get(i) == 1){
-                            if(!visited.contains(i)){
-                                neighbours.add(i);
-                            }
+                for(int i = 0; i < numberOfVertex; i++){
+                    if(vertices.get(node).get(i) == 1){
+                        if(!visited.contains(i) && !neighbours.contains(i)){
+                            neighbours.add(i);
                         }
                     }
                 }

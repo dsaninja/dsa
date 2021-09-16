@@ -64,7 +64,7 @@ public class GraphAsAdjacencyMatrix{
     /**
      * Check if the two vertices denoted by start and end params
      * are connected or not.
-     *
+     * <p>
      * For checking reverse connection, end > start is fine
      *
      * @param start start vertex
@@ -107,15 +107,14 @@ public class GraphAsAdjacencyMatrix{
 
             while(!neighbours.isEmpty()){
                 int node = neighbours.poll();
-                if(!visited.contains(node)){
-                    consumer.accept(node);
-                    visited.add(node);
 
-                    for(int i = 0; i < numberOfVertex; i++){
-                        if(vertices[node][i] == 1){
-                            if(!visited.contains(i)){
-                                neighbours.add(i);
-                            }
+                consumer.accept(node);
+                visited.add(node);
+
+                for(int i = 0; i < numberOfVertex; i++){
+                    if(vertices[node][i] == 1){
+                        if(!visited.contains(i) && !neighbours.contains(i)){
+                            neighbours.add(i);
                         }
                     }
                 }

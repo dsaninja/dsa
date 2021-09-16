@@ -61,12 +61,6 @@ class GraphAsAdjacencyListSpec extends Specification {
         and: " a new graph is created"
         def graph = new GraphAsAdjacencyList(vertexCount)
 
-        when: "a new edge is created between two nodes start: 6 and end: 4"
-        graph.addEdge(6, 4)
-
-        then: "exception should be thrown"
-        thrown(IllegalArgumentException)
-
         when: "a new edge is created between two nodes start: -1 and end: 4"
         graph.addEdge(-1, 4)
 
@@ -109,12 +103,6 @@ class GraphAsAdjacencyListSpec extends Specification {
         def graph = new GraphAsAdjacencyList(vertexCount)
         and: "invalid start vertex"
 
-        when: "an edge is removed between two nodes start: 6 and end: 4"
-        graph.removeEdge(6, 4)
-
-        then: "exception should be thrown"
-        thrown(IllegalArgumentException)
-
         when: "an edge is removed between two nodes start: -1 and end: 4"
         graph.removeEdge(-1, 4)
 
@@ -131,12 +119,6 @@ class GraphAsAdjacencyListSpec extends Specification {
 
         when: "an edge is removed between two nodes start: 1 and end: 6"
         graph.removeEdge(1, 6)
-
-        then: "exception should be thrown"
-        thrown(IllegalArgumentException)
-
-        when: "an edge is removed between two nodes start: 1 and end: -6"
-        graph.removeEdge(1, -6)
 
         then: "exception should be thrown"
         thrown(IllegalArgumentException)
@@ -207,11 +189,26 @@ class GraphAsAdjacencyListSpec extends Specification {
         and: " a new graph is created"
         def graph = new GraphAsAdjacencyList(vertexCount)
         graph.addEdge(0, 1)
+        graph.addEdge(1, 0)
+
         graph.addEdge(0, 2)
+        graph.addEdge(2, 0)
+
         graph.addEdge(1, 3)
+        graph.addEdge(3, 1)
+
         graph.addEdge(2, 3)
+        graph.addEdge(3, 2)
+
         graph.addEdge(2, 4)
+        graph.addEdge(4, 2)
+
         graph.addEdge(3, 5)
+        graph.addEdge(5, 3)
+
+        graph.addEdge(4, 5)
+        graph.addEdge(5, 4)
+
         def stringJoiner = new StringJoiner(", ")
 
         when: "a few edges are created between two nodes"
