@@ -183,6 +183,39 @@ class GraphAsAdjacencyListSpec extends Specification {
         degree == 3
     }
 
+    @Shared
+    def graph = new GraphAsAdjacencyList(5)
+    def "test adding a new vertex"(int vertex) {
+        given: "number of vertices"
+        and: " a new graph is created"
+
+        when: "new vertex is added"
+        graph.addVertex(vertex)
+        def updatedVertexCount = graph.getNumberOfVertex()
+
+        then:
+        updatedVertexCount == expectedVertexCount
+
+        where:
+        vertex | expectedVertexCount
+        6      | 6
+        7      | 7
+        8      | 8
+    }
+
+    def "invalid vertex creation"(){
+        given: "number of vertices"
+        def vertexCount = 5
+        and: " a new graph is created"
+        def graph = new GraphAsAdjacencyList(vertexCount)
+
+        when: "new invalid vertex is created"
+        graph.addVertex(7)
+
+        then: "exception is thrown"
+        thrown(IllegalArgumentException)
+    }
+
     def "test bfs traversal on the graph"() {
         given: "number of vertices"
         def vertexCount = 6
@@ -232,36 +265,52 @@ class GraphAsAdjacencyListSpec extends Specification {
         stringJoiner.toString() == ""
     }
 
-    @Shared
-    def graph = new GraphAsAdjacencyList(5)
-    def "test adding a new vertex"(int vertex) {
+    def "test dfs traversal on the graph"() {
         given: "number of vertices"
-        and: " a new graph is created"
-
-        when: "new vertex is added"
-        graph.addVertex(vertex)
-        def updatedVertexCount = graph.getNumberOfVertex()
-
-        then:
-        updatedVertexCount == expectedVertexCount
-
-        where:
-        vertex | expectedVertexCount
-        6      | 6
-        7      | 7
-        8      | 8
-    }
-
-    def "invalid vertex creation"(){
-        given: "number of vertices"
-        def vertexCount = 5
+        def vertexCount = 6
         and: " a new graph is created"
         def graph = new GraphAsAdjacencyList(vertexCount)
+        graph.addEdge(0, 1)
+        graph.addEdge(1, 0)
 
-        when: "new invalid vertex is created"
-        graph.addVertex(7)
+        graph.addEdge(0, 2)
+        graph.addEdge(2, 0)
 
-        then: "exception is thrown"
-        thrown(IllegalArgumentException)
+        graph.addEdge(1, 3)
+        graph.addEdge(3, 1)
+
+        graph.addEdge(2, 3)
+        graph.addEdge(3, 2)
+
+        graph.addEdge(2, 4)
+        graph.addEdge(4, 2)
+
+        graph.addEdge(3, 5)
+        graph.addEdge(5, 3)
+
+        graph.addEdge(4, 5)
+        graph.addEdge(5, 4)
+
+        def stringJoiner = new StringJoiner(", ")
+
+        when: "a few edges are created between two nodes"
+        graph.dfs(element -> stringJoiner.add(element.toString()))
+
+        then: "bfs traversal should be correctly done"
+        stringJoiner.toString() == "0, 2, 4, 5, 3, 1"
+    }
+
+    def "test dfs traversal on empty tree"() {
+        given: "number of vertices"
+        def vertexCount = 0
+        and: " a new graph is created"
+        def graph = new GraphAsAdjacencyList(vertexCount)
+        def stringJoiner = new StringJoiner(", ")
+
+        when: "a few edges are created between two nodes"
+        graph.dfs(element -> stringJoiner.add(element.toString()))
+
+        then: "bfs traversal should be correctly done"
+        stringJoiner.toString() == ""
     }
 }

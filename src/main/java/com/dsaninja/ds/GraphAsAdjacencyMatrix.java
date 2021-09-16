@@ -2,9 +2,10 @@ package com.dsaninja.ds;
 
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.Set;
-import java.util.function.Consumer;
 import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
+import java.util.function.Consumer;
 
 /**
  * A graph implementation using adjacency matrix representation.
@@ -106,15 +107,40 @@ public class GraphAsAdjacencyMatrix{
             neighbours.add(0);
 
             while(!neighbours.isEmpty()){
-                int node = neighbours.poll();
+                int discovered = neighbours.poll();
 
-                consumer.accept(node);
-                visited.add(node);
+                consumer.accept(discovered);
+                visited.add(discovered);
 
-                for(int i = 0; i < numberOfVertex; i++){
-                    if(vertices[node][i] == 1){
-                        if(!visited.contains(i) && !neighbours.contains(i)){
-                            neighbours.add(i);
+                for(int neighbour = 0; neighbour < numberOfVertex; neighbour++){
+                    if(vertices[discovered][neighbour] == 1){
+                        if(!visited.contains(neighbour) && !neighbours.contains(neighbour)){
+                            neighbours.add(neighbour);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void dfs(Consumer<Integer> consumer){
+        if(numberOfVertex > 0){
+            Stack<Integer> neighbours = new Stack<>();
+            Set<Integer> visited = new HashSet<>();
+
+            // add start node
+            neighbours.add(0);
+
+            while(!neighbours.isEmpty()){
+                int discovered = neighbours.pop();
+
+                consumer.accept(discovered);
+                visited.add(discovered);
+
+                for(int neighbour = 0; neighbour < numberOfVertex; neighbour++){
+                    if(vertices[discovered][neighbour] == 1){
+                        if(!visited.contains(neighbour) && !neighbours.contains(neighbour)){
+                            neighbours.push(neighbour);
                         }
                     }
                 }

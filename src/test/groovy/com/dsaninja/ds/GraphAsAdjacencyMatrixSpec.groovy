@@ -233,4 +233,38 @@ class GraphAsAdjacencyMatrixSpec extends Specification {
         then: "bfs traversal should be correctly done"
         stringJoiner.toString() == ""
     }
+
+    def "test dfs traversal on the graph"() {
+        given: "number of vertices"
+        def vertexCount = 6
+        and: " a new graph is created"
+        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        graph.addEdge(0, 1)
+        graph.addEdge(0, 2)
+        graph.addEdge(1, 3)
+        graph.addEdge(2, 3)
+        graph.addEdge(2, 4)
+        graph.addEdge(3, 5)
+        def stringJoiner = new StringJoiner(", ")
+
+        when: "a few edges are created between two nodes"
+        graph.dfs(element -> stringJoiner.add(element.toString()))
+
+        then: "bfs traversal should be correctly done"
+        stringJoiner.toString() == "0, 2, 4, 3, 5, 1"
+    }
+
+    def "test dfs traversal on empty tree"() {
+        given: "number of vertices"
+        def vertexCount = 0
+        and: " a new graph is created"
+        def graph = new GraphAsAdjacencyMatrix(vertexCount)
+        def stringJoiner = new StringJoiner(", ")
+
+        when: "a few edges are created between two nodes"
+        graph.dfs(element -> stringJoiner.add(element.toString()))
+
+        then: "bfs traversal should be correctly done"
+        stringJoiner.toString() == ""
+    }
 }

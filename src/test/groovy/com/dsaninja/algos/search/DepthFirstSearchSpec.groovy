@@ -2,9 +2,9 @@ package com.dsaninja.algos.search
 
 import spock.lang.Specification
 
-class BreadthFirstSearchSpec extends Specification {
+class DepthFirstSearchSpec extends Specification {
 
-    def bfs = new BreadthFirstSearch()
+    def dfs = new DepthFirstSearch()
 
     def "test bfs traversal on the graph"() {
         given: "BFS is available and a new graph is created"
@@ -12,9 +12,9 @@ class BreadthFirstSearchSpec extends Specification {
         def stringJoiner = new StringJoiner(", ")
 
         when: "a few edges are created between two nodes"
-        bfs.traverse(twoDim, 0, element -> stringJoiner.add(element.toString()))
+        dfs.traverse(twoDim, 0, element -> stringJoiner.add(element.toString()))
 
         then: "bfs traversal should be correctly done"
-        stringJoiner.toString() == "0, 1, 2, 3, 4, 5"
+        stringJoiner.toString() == "0, 2, 4, 5, 3, 1"
     }
 }
