@@ -13,6 +13,28 @@ import java.util.function.Consumer;
  * Extra memory, as a queue, is needed to keep track of the vertices
  * that were encountered but not yet explored.
  *
+ * <h1>Complexity</h1>
+ * <p>
+ * The time complexity of algorithm actually depends on the data structure being used to represent the graph:
+ * <ol>
+ * If the graph is represented as an adjacency matrix (a V x V array):
+ *  <li>For each node, we will have to traverse an entire row of length V in the matrix to discover all its outgoing edges.</li>
+ *  <li> Note that each row in an adjacency matrix corresponds to a node in the graph, and that row stores information about edges emerging from
+ *  the node. Hence, the time complexity of BFS in this case is O(V * V) = O(V^2)</li>
+ * </ol>
+ *
+ * <ol>
+ * If the graph is represented as adjacency list:
+ * <li>Here, each node maintains a list of all its adjacent edges. Let’s assume that there are V number of nodes and E number of edges in the graph
+ * .</li>
+ * <li>For each node, we discover all its neighbors by traversing its adjacency list just once in linear time.</li>
+ * <li>For a directed graph, the sum of the sizes of the adjacency lists of all the nodes is E. So, the time complexity in this case is O(V) + O(E)
+ * = O(V + E).</li>
+ * <li>For an undirected graph, each edge appears twice. Once in the adjacency list of either end of the edge. The time complexity for this case
+ * will be O(V) + O (2E) ~ O(V + E).</li>
+ *
+ * </ol>
+ *
  * @author gaurs
  */
 public class BreadthFirstSearch{
