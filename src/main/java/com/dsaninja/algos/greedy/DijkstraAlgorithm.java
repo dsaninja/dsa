@@ -14,19 +14,31 @@ import java.util.stream.IntStream;
  * Consider there are V number of vertices in a graph. Then by definition,
  * there would be |V-1| number of edges.
  * <p>
+ * <h1>Complexity</h1>
+ *
+ * <h2>Without priority Queue:</h2>
  * <ol>
- * <li>The main outer loop runs for |V| times</li>
- * <li>The inner loop meant where actual cost calculation happens runs for |V-1|
- * times for a complete graph as each vertex has |V-1| edges. </li>
- * <li>Hence, the total running time will have an upper bound of O(|V| * |V-1|) which is equivalent to O(|V|^2)</li>
+ *     <li>O(V) * (O(V) + O(NV))</li>
+ *     <li>O(V) * ((N+1)V)</li>
+ *     <li>O(V) * (NV) ~ O(V^2)</li>
  * </ol>
+ *
+ * <h2>With Priority Queue</h2>
+ * <ol>
+ *     <li>O(V) * (O(log V) + O(NlogV))</li>
+ *     <li>O(V) * ((N+1)log V)</li>
+ *     <li>O(V) * (N log V)</li>
+ *     <li>O(NV log V) ; N is the maximum number of edges attached to a single node</li>
+ * </ol>
+ * Assuming, E = O(VN) - a tighter estimation, the overall complexity is O(E logV) with PQ
  *
  * @author gaurs
  */
 public class DijkstraAlgorithm{
 
     public int traverse(int[][] graph, int start, int end, Consumer<Integer> consumer){
-        record Node(int vertexId, int weight){}
+        record Node(int vertexId, int weight){
+        }
 
         // create a priority queue that keeps vertices with minimum weight on front
         Queue<Node> priorityQueue = new PriorityQueue<>(Comparator.comparing(Node::weight));
@@ -47,7 +59,7 @@ public class DijkstraAlgorithm{
 
         // O(V)
         while(!priorityQueue.isEmpty()){
-            // fetch the vertex with minimum weight
+            // fetch the vertex with minimum weight O(log V) to maintain PQ - heapify
             int discoveredNode = priorityQueue.poll().vertexId();
 
             // mark it visited
@@ -61,6 +73,7 @@ public class DijkstraAlgorithm{
                         !visited[neighbour] &&
                         // and the current calculated distance is more than the new one
                         distance[neighbour] > graph[discoveredNode][neighbour] + distance[discoveredNode]){
+                    // O(log V)
                     priorityQueue.add(new Node(neighbour, graph[discoveredNode][neighbour] + distance[discoveredNode]));
                     distance[neighbour] = graph[discoveredNode][neighbour] + distance[discoveredNode];
                     predecessor[neighbour] = discoveredNode;

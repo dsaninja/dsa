@@ -5,8 +5,10 @@
 
 A collection of various data structures and algorithms implemented using java programming language.
 
-1. [Search Algorithms](./src/main/java/com/dsaninja/algos/search/README.md)
-2. [Sorting Algorithms](./src/main/java/com/dsaninja/algos/sort/README.md)
-3. [Data Structures](./src/main/java/com/dsaninja/ds/README.md)
+1. [Search Algorithms](./src/main/java/com/dsaninja/algos/searching/README.md)
+2. [Sorting Algorithms](./src/main/java/com/dsaninja/algos/sorting/README.md)
+3. [Greedy Algorithms](./src/main/java/com/dsaninja/algos/greedy/README.md)
+4. [Dynamic Programming](./src/main/java/com/dsaninja/algos/dp/README.md)
+5. [Data Structures](./src/main/java/com/dsaninja/ds/README.md)
 
 The test cases are written using [Spock](https://spockframework.org/) as groovy classes to adhere to [Gherkins](https://specflow.org/gherkin/gherkin-conventions-for-readable-specifications/) readable specifications.
