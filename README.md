@@ -11,4 +11,4 @@ A collection of various data structures and algorithms implemented using java pr
 4. [Dynamic Programming](./src/main/java/com/dsaninja/algos/dp/README.md)
 5. [Data Structures](./src/main/java/com/dsaninja/ds/README.md)
 
-The test cases are written using [Spock](https://spockframework.org/) as groovy classes to adhere to [Gherkins](https://specflow.org/gherkin/gherkin-conventions-for-readable-specifications/) readable specifications.
+The test cases are written using [Spock](https://spockframework.org/) as groovy classes that adhere to [Gherkins](https://specflow.org/gherkin/gherkin-conventions-for-readable-specifications/) specifications.
