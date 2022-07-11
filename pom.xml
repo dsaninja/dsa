@@ -9,19 +9,19 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <java.version>16</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jcip.version>1.0</jcip.version>
 
-        <logback.version>1.3.0-alpha10</logback.version>
-        <spock.core>2.0-groovy-3.0</spock.core>
-        <groovy.all>3.0.9</groovy.all>
-        <bytebuddy.version>1.11.22</bytebuddy.version>
+        <logback.version>1.3.0-alpha11</logback.version>
+        <spock.core>2.1-groovy-3.0</spock.core>
+        <groovy.all>3.0.11</groovy.all>
+        <bytebuddy.version>1.12.10</bytebuddy.version>
         <objenesis.version>3.2</objenesis.version>
         <junit.version>4.13.2</junit.version>
-        <spock.reports>2.1-groovy-3.0</spock.reports>
+        <spock.reports>2.3.0-groovy-3.0</spock.reports>
 
-        <gmavenplus.plugin>1.13.0</gmavenplus.plugin>
+        <gmavenplus.plugin>1.13.1</gmavenplus.plugin>
         <maven.surefire>3.0.0-M5</maven.surefire>
         <jacoco.version>0.8.7</jacoco.version>
 
