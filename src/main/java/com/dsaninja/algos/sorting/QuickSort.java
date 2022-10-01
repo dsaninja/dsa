@@ -52,7 +52,7 @@ public class QuickSort{
             // move toward left until you find an element smaller than pivot
             // stop there as that element needs to be moved to the left of pivot
             // pay attention to the equality operator for input and pivot comparison
-            while(input[j] >= pivot && j > start){
+            while(input[j] > pivot && j > start){
                 j--;
             }
 
