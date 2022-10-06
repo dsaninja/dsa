@@ -44,7 +44,7 @@ public class CountSort{
                 frequencies[i] = frequencies[i] + frequencies[i - 1];
             }
 
-            // This makes the freq array as [0(0), 1(2), 3(3), 4(4), 5(5), 6(6)]
+            // This makes the freq array as [0(0), 1(2), 2(3), 3(4), 4(5), 5(6)]
             // On a second look, we can conclude that every value
             // now represents the index of next element in the final sorted
             // result i.e. 0 at 0th index represents location of 1 in final output
@@ -70,6 +70,27 @@ public class CountSort{
             System.arraycopy(result, 0, input, 0, input.length);
         }
     }
+
+    public int[] countingSort(int[] input) {
+        int[] counts = populateFrequencies(input);
+
+        int numItemsBefore = 0;
+        for (int i = 0; i < counts.length; i++) {
+            int count = counts[i];
+            counts[i] = numItemsBefore;
+            numItemsBefore += count;
+        }
+
+        int[] sortedArray = new int[input.length];
+
+        for (int item : input) {
+            sortedArray[ counts[item] ] = item;
+            counts[item] += 1;
+        }
+
+        return sortedArray;
+    }
+
 
     private int[] populateFrequencies(int[] input){
         int maxValue = Arrays.stream(input).max().getAsInt();
